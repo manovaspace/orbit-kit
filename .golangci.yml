@@ -1,0 +1,76 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - depguard
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+  settings:
+    depguard:
+      rules:
+        # ratelimiting/internal/domain is pure types and the Limiter port. It imports no Redis
+        # client, HTTP server or adapter.
+        ratelimiting-domain:
+          files:
+            - "**/ratelimiting/internal/domain/**"
+          deny:
+            - pkg: "github.com/redis/go-redis"
+              desc: "internal/domain declares the Limiter port; Redis lives in infrastructure"
+            - pkg: "net/http"
+              desc: "internal/domain has no HTTP server"
+            - pkg: "os/exec"
+              desc: "internal/domain is pure and runs no process"
+            - pkg: "github.com/manovaspace/orbit-kit/ratelimiting/internal/infrastructure"
+              desc: "internal/domain must not depend on an adapter"
+        # ratelimiting/internal/application holds shared rules and imports no adapter.
+        ratelimiting-application:
+          files:
+            - "**/ratelimiting/internal/application/**"
+          deny:
+            - pkg: "github.com/redis/go-redis"
+              desc: "internal/application reaches Redis through the domain adapter, never directly"
+            - pkg: "net/http"
+              desc: "internal/application has no HTTP server"
+            - pkg: "os/exec"
+              desc: "internal/application runs no process"
+            - pkg: "github.com/manovaspace/orbit-kit/ratelimiting/internal/infrastructure"
+              desc: "internal/application must not depend on an adapter"
+        # observability/internal/domain is pure configuration types. It imports no telemetry SDK,
+        # gRPC, HTTP server or adapter.
+        observability-domain:
+          files:
+            - "**/observability/internal/domain/**"
+          deny:
+            - pkg: "go.opentelemetry.io/otel"
+              desc: "internal/domain declares configuration; the SDK lives in infrastructure"
+            - pkg: "github.com/getsentry/sentry-go"
+              desc: "internal/domain has no Sentry client"
+            - pkg: "google.golang.org/grpc"
+              desc: "internal/domain has no gRPC transport"
+            - pkg: "net/http"
+              desc: "internal/domain has no HTTP server"
+            - pkg: "os/exec"
+              desc: "internal/domain is pure and runs no process"
+            - pkg: "github.com/manovaspace/orbit-kit/observability/internal/infrastructure"
+              desc: "internal/domain must not depend on an adapter"
+        # observability/internal/application holds health and redaction rules only.
+        observability-application:
+          files:
+            - "**/observability/internal/application/**"
+          deny:
+            - pkg: "go.opentelemetry.io/otel"
+              desc: "internal/application holds pure state and import rules"
+            - pkg: "github.com/getsentry/sentry-go"
+              desc: "internal/application has no Sentry client"
+            - pkg: "google.golang.org/grpc"
+              desc: "internal/application has no gRPC transport"
+            - pkg: "net/http"
+              desc: "internal/application has no HTTP server"
+            - pkg: "os/exec"
+              desc: "internal/application runs no process"
+            - pkg: "github.com/manovaspace/orbit-kit/observability/internal/infrastructure"
+              desc: "internal/application must not depend on an adapter"
