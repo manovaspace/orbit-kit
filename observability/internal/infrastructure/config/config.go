@@ -14,7 +14,7 @@ func FromEnv(serviceName, serviceVersion string) domain.Config {
 		ServiceVersion: serviceVersion,
 		Environment:    envOr("DEPLOYMENT_ENVIRONMENT", "dev"),
 		Exporter:       domain.ExporterConsole,
-		OTLPEndpoint:   envOr("OTEL_EXPORTER_OTLP_ENDPOINT", "localhost:10517"),
+		OTLPEndpoint:   envOr("OTEL_EXPORTER_OTLP_ENDPOINT", "localhost:10022"),
 		SentryDSN:      os.Getenv("SENTRY_DSN"),
 		TenantID:       os.Getenv("TENANT_ID"),
 	}

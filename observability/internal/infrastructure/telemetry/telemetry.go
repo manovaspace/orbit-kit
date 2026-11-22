@@ -43,7 +43,7 @@ func Configure(c domain.Config) error {
 		c.Exporter = domain.ExporterConsole
 	}
 	if c.OTLPEndpoint == "" {
-		c.OTLPEndpoint = "localhost:10517"
+		c.OTLPEndpoint = "localhost:10022"
 	}
 	if c.Environment == "" {
 		c.Environment = "dev"
