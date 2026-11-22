@@ -34,7 +34,7 @@ func main() {
 }
 ```
 
-Set `OTEL_EXPORTER_OTLP_ENDPOINT` (for example `localhost:10517`) or pass `Exporter: observability.ExporterOTLP` for OTLP trace export.
+Set `OTEL_EXPORTER_OTLP_ENDPOINT` (for example `localhost:10022`) or pass `Exporter: observability.ExporterOTLP` for OTLP trace export.
 
 Graceful shutdown:
 
