@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/manovaspace/orbit-kit/compare/v0.1.0...v0.1.1) (2026-11-22)
+
+
+### Bug Fixes
+
+* move ports to the registry block ([#3](https://github.com/manovaspace/orbit-kit/issues/3)) ([f53b761](https://github.com/manovaspace/orbit-kit/commit/f53b761edb5d9efa01fe1371af942751c1b9490b))
+
 ## 0.1.0 (2026-11-21)
 
 
