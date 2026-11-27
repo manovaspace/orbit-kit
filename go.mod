@@ -7,7 +7,7 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/jackc/pgx/v5 v5.13.0
 	github.com/nats-io/nats.go v1.56.0
-	github.com/redis/go-redis/v9 v9.23.0
+	github.com/redis/go-redis/v9 v9.24.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.72.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.72.0
 	go.opentelemetry.io/otel v1.47.0
